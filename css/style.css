@@ -1,0 +1,501 @@
+/* ==========================================================================
+   Rapid Report Analyzer - Main Stylesheet
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Root Variables & Color System
+   -------------------------------------------------------------------------- */
+:root {
+  --bg: #f7f4f4;
+  --card: #ffffff;
+  --ink: #12263a;
+  --mute: #5d7184;
+  --blue: #c8102e;
+  --teal: #8f0a1f;
+  --line: #dde5ec;
+  --ok: #0f9d6a;
+  --warn: #c9741a;
+  --tint: #fdeaec;
+
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Dark Mode Theme */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1a1012;
+    --card: #27171a;
+    --ink: #f6eaec;
+    --mute: #c4a7ac;
+    --line: #4a2b31;
+    --tint: #3a1f25;
+    --blue: #ff5a70;
+    --teal: #ff8b9a;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Base & Reset
+   -------------------------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 16px/1.55 'Plus Jakarta Sans', 'Noto Sans Tamil', system-ui, sans-serif;
+}
+
+body.ta {
+  font-family: 'Noto Sans Tamil', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   Layout & Navigation
+   -------------------------------------------------------------------------- */
+.app {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: 100vh;
+}
+
+nav {
+  background: var(--card);
+  border-right: 1px solid var(--line);
+  padding: 16px 10px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 15px;
+  padding: 4px 8px 14px;
+  color: var(--blue);
+  line-height: 1.15;
+}
+
+.logo img {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #ffffff;
+  object-fit: cover;
+}
+
+nav button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  padding: 9px 12px;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+nav button:hover {
+  background: var(--tint);
+}
+
+nav button.on {
+  background: var(--blue);
+  color: #ffffff;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}
+
+main {
+  padding: 24px clamp(16px, 4vw, 44px) 60px;
+  max-width: 1040px;
+  width: 100%;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   Badges, Typography & Common Elements
+   -------------------------------------------------------------------------- */
+.demo {
+  background: #fff3d6;
+  color: #6b4a00;
+  border-radius: 99px;
+  padding: 3px 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: clamp(28px, 5vw, 46px);
+  line-height: 1.1;
+  margin: 0 0 12px;
+  font-weight: 800;
+}
+
+h2 {
+  margin: 0 0 14px;
+  font-size: 24px;
+}
+
+h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+
+.mute {
+  color: var(--mute);
+}
+
+.card {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 2px 14px rgba(20, 60, 100, 0.08);
+  margin-bottom: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons & Language Switcher
+   -------------------------------------------------------------------------- */
+.btn {
+  background: var(--blue);
+  color: #ffffff;
+  border: 0;
+  border-radius: 12px;
+  padding: 11px 20px;
+  font: 600 15px inherit;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn.alt {
+  background: var(--tint);
+  color: var(--ink);
+}
+
+.btn.sm {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.lang {
+  display: flex;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.lang button {
+  border: 0;
+  background: none;
+  padding: 6px 14px;
+  cursor: pointer;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+}
+
+.lang .on {
+  background: var(--teal);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Hero Section & Stepper Flow
+   -------------------------------------------------------------------------- */
+.hero {
+  background: linear-gradient(135deg, #d7122f, #7d0818);
+  color: #ffffff;
+  border-radius: 24px;
+  padding: clamp(22px, 5vw, 48px);
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.hero .btn {
+  background: #ffffff;
+  color: #8f0a1f;
+}
+
+.hero .btn.alt {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.flow span {
+  background: var(--tint);
+  border-radius: 99px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Range Indicator Bar & Status Pills
+   -------------------------------------------------------------------------- */
+.bar {
+  position: relative;
+  height: 16px;
+  border-radius: 99px;
+  background: #f6dcc3;
+  margin: 30px 0 8px;
+}
+
+.bar i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: #9fdcc5;
+  border-radius: 99px;
+}
+
+.bar b {
+  position: absolute;
+  top: -9px;
+  width: 6px;
+  height: 34px;
+  margin-left: -3px;
+  border-radius: 4px;
+  background: var(--ink);
+  transition: left 0.6s ease;
+}
+
+.bar em {
+  position: absolute;
+  top: -26px;
+  transform: translateX(-50%);
+  font: 600 13px inherit;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--mute);
+}
+
+.pill {
+  display: inline-block;
+  border-radius: 99px;
+  padding: 2px 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.in {
+  background: #d6f3e6;
+  color: #0a6b46;
+}
+
+.out {
+  background: #fde6cc;
+  color: #8a4a0a;
+}
+
+/* --------------------------------------------------------------------------
+   Details, Tables, Forms & Inputs
+   -------------------------------------------------------------------------- */
+details {
+  border-top: 1px solid var(--line);
+  padding: 8px 0;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  display: block;
+  overflow-x: auto;
+}
+
+td,
+th {
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+
+input,
+select {
+  font: inherit;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  max-width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: end;
+}
+
+.form label {
+  display: grid;
+  gap: 3px;
+  font-size: 13px;
+  color: var(--mute);
+}
+
+.drop {
+  border: 2px dashed var(--teal);
+  border-radius: 18px;
+  padding: 30px;
+  text-align: center;
+  background: var(--tint);
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   Chat Interface
+   -------------------------------------------------------------------------- */
+.chat {
+  height: 260px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 6px;
+}
+
+.msg {
+  padding: 9px 14px;
+  border-radius: 14px;
+  max-width: 85%;
+  line-height: 1.45;
+}
+
+.u {
+  background: var(--blue);
+  color: #ffffff;
+  align-self: flex-end;
+}
+
+.a {
+  background: var(--tint);
+}
+
+.disc {
+  font-size: 13px;
+  color: var(--mute);
+  border-top: 1px solid var(--line);
+  margin-top: 30px;
+  padding-top: 12px;
+}
+
+svg text {
+  fill: var(--mute);
+  font-size: 11px;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive & Print Media Queries
+   -------------------------------------------------------------------------- */
+@media (max-width: 820px) {
+  .app {
+    grid-template-columns: 1fr;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    height: auto;
+    display: flex;
+    overflow-x: auto;
+    z-index: 5;
+    padding: 8px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .logo {
+    display: none;
+  }
+
+  nav button {
+    white-space: nowrap;
+    width: auto;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+@media print {
+  nav,
+  .top,
+  .noprint {
+    display: none !important;
+  }
+
+  .app {
+    display: block;
+  }
+}
